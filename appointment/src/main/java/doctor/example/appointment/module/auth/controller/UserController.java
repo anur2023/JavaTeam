@@ -7,6 +7,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Map;
+
 @RestController
 @RequestMapping("/pharmacy")
 public class UserController {
@@ -24,7 +26,7 @@ public class UserController {
     }
 
     @PostMapping("/login")
-    public Users login(@RequestBody Users user){
+    public Map<String, Object> login(@RequestBody Users user){
         return userService.login(user);
     }
 }
