@@ -2,6 +2,7 @@ package com.doctor.appoint.modules.auth.controller;
 
 import com.doctor.appoint.modules.auth.dto.AuthResponse;
 import com.doctor.appoint.modules.auth.dto.LoginRequest;
+import com.doctor.appoint.modules.auth.dto.LoginResponse;
 import com.doctor.appoint.modules.auth.dto.RegisterRequest;
 import com.doctor.appoint.modules.auth.service.UserService;
 import jakarta.validation.Valid;
@@ -25,7 +26,7 @@ public class AuthController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<AuthResponse> login(@Valid @RequestBody LoginRequest request) {
+    public ResponseEntity<LoginResponse> login(@Valid @RequestBody LoginRequest request) {
         return ResponseEntity.ok(userService.login(request));
     }
 }
