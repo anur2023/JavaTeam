@@ -12,7 +12,6 @@ public class AvailabilitySlot {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    // References doctor by ID (from Doctor module)
     @Column(name = "doctor_id", nullable = false)
     private Long doctorId;
 
@@ -25,22 +24,28 @@ public class AvailabilitySlot {
     @Column(name = "end_time", nullable = false)
     private LocalTime endTime;
 
+    // ONLINE or OFFLINE
+    @Column(name = "mode", nullable = false)
+    private String mode;
+
     @Column(name = "is_booked", nullable = false)
     private boolean isBooked = false;
 
     public AvailabilitySlot() {}
 
-    public Long getId() { return id; }
-    public Long getDoctorId() { return doctorId; }
+    public Long getId()            { return id; }
+    public Long getDoctorId()      { return doctorId; }
     public LocalDate getSlotDate() { return slotDate; }
-    public LocalTime getStartTime() { return startTime; }
-    public LocalTime getEndTime() { return endTime; }
-    public boolean isBooked() { return isBooked; }
+    public LocalTime getStartTime(){ return startTime; }
+    public LocalTime getEndTime()  { return endTime; }
+    public String getMode()        { return mode; }
+    public boolean isBooked()      { return isBooked; }
 
-    public void setId(Long id) { this.id = id; }
-    public void setDoctorId(Long doctorId) { this.doctorId = doctorId; }
+    public void setId(Long id)                  { this.id = id; }
+    public void setDoctorId(Long doctorId)      { this.doctorId = doctorId; }
     public void setSlotDate(LocalDate slotDate) { this.slotDate = slotDate; }
-    public void setStartTime(LocalTime startTime) { this.startTime = startTime; }
-    public void setEndTime(LocalTime endTime) { this.endTime = endTime; }
-    public void setBooked(boolean booked) { isBooked = booked; }
+    public void setStartTime(LocalTime t)       { this.startTime = t; }
+    public void setEndTime(LocalTime t)         { this.endTime = t; }
+    public void setMode(String mode)            { this.mode = mode; }
+    public void setBooked(boolean booked)       { isBooked = booked; }
 }

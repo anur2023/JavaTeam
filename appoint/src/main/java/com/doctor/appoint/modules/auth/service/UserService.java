@@ -6,7 +6,7 @@ import com.doctor.appoint.modules.auth.dto.AuthResponse;
 import com.doctor.appoint.modules.auth.dto.LoginRequest;
 import com.doctor.appoint.modules.auth.dto.RegisterRequest;
 import com.doctor.appoint.modules.auth.repository.UserRepository;
-import com.doctor.appoint.modules.common.security.JwtUtil;
+import com.doctor.appoint.common.security.JwtUtil;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -29,15 +29,12 @@ public class UserService {
         if (userRepository.existsByEmail(request.getEmail())) {
             throw new RuntimeException("Email already registered");
         }
-
         Users user = new Users();
         user.setName(request.getName());
         user.setEmail(request.getEmail());
         user.setPassword(passwordEncoder.encode(request.getPassword()));
         user.setRole(Role.valueOf(request.getRole().toUpperCase()));
-
         userRepository.save(user);
-
         String token = jwtUtil.generateToken(user.getEmail(), user.getRole().name());
         return new AuthResponse(token, user.getRole().name(), user.getName());
     }
@@ -45,12 +42,15 @@ public class UserService {
     public AuthResponse login(LoginRequest request) {
         Users user = userRepository.findByEmail(request.getEmail())
                 .orElseThrow(() -> new RuntimeException("Invalid email or password"));
-
         if (!passwordEncoder.matches(request.getPassword(), user.getPassword())) {
             throw new RuntimeException("Invalid email or password");
         }
-
         String token = jwtUtil.generateToken(user.getEmail(), user.getRole().name());
         return new AuthResponse(token, user.getRole().name(), user.getName());
+    }
+
+    public Users getProfile(String email) {
+        return userRepository.findByEmail(email)
+                .orElseThrow(() -> new RuntimeException("User not found"));
     }
 }

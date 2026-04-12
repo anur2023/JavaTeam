@@ -24,24 +24,19 @@ public class SlotService {
         slot.setSlotDate(request.getSlotDate());
         slot.setStartTime(request.getStartTime());
         slot.setEndTime(request.getEndTime());
+        slot.setMode(request.getMode().toUpperCase());
         slot.setBooked(false);
-
-        AvailabilitySlot saved = slotRepository.save(slot);
-        return mapToResponse(saved);
+        return mapToResponse(slotRepository.save(slot));
     }
 
     public List<SlotResponse> getSlotsByDoctor(Long doctorId) {
         return slotRepository.findByDoctorId(doctorId)
-                .stream()
-                .map(this::mapToResponse)
-                .collect(Collectors.toList());
+                .stream().map(this::mapToResponse).collect(Collectors.toList());
     }
 
     public List<SlotResponse> getAvailableSlotsByDoctor(Long doctorId) {
         return slotRepository.findByDoctorIdAndIsBooked(doctorId, false)
-                .stream()
-                .map(this::mapToResponse)
-                .collect(Collectors.toList());
+                .stream().map(this::mapToResponse).collect(Collectors.toList());
     }
 
     private SlotResponse mapToResponse(AvailabilitySlot slot) {
@@ -51,6 +46,7 @@ public class SlotService {
                 slot.getSlotDate(),
                 slot.getStartTime(),
                 slot.getEndTime(),
+                slot.getMode(),
                 slot.isBooked()
         );
     }

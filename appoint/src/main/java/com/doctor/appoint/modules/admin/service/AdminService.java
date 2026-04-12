@@ -44,10 +44,10 @@ public class AdminService {
         for (Appointment appointment : appointments) {
 
             AppointmentResponseDTO dto = new AppointmentResponseDTO();
-            dto.setAppointmentId(appointment.getAppointmentId());
+            dto.setAppointmentId(appointment.getId());
             dto.setPatientId(appointment.getPatientId());
             dto.setDoctorId(appointment.getDoctorId());
-            dto.setSlotId(appointment.getSlotId());
+            dto.setSlotId(appointment.getSlot());
             dto.setMode(appointment.getMode());
             dto.setStatus(appointment.getStatus());
             dto.setBookingTime(appointment.getBookingTime());

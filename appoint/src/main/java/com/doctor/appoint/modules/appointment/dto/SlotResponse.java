@@ -10,22 +10,26 @@ public class SlotResponse {
     private LocalDate slotDate;
     private LocalTime startTime;
     private LocalTime endTime;
+    private String mode;
     private boolean isBooked;
 
     public SlotResponse(Long id, Long doctorId, LocalDate slotDate,
-                        LocalTime startTime, LocalTime endTime, boolean isBooked) {
+                        LocalTime startTime, LocalTime endTime,
+                        String mode, boolean isBooked) {
         this.id = id;
         this.doctorId = doctorId;
         this.slotDate = slotDate;
         this.startTime = startTime;
         this.endTime = endTime;
+        this.mode = mode;
         this.isBooked = isBooked;
     }
 
-    public Long getId() { return id; }
-    public Long getDoctorId() { return doctorId; }
+    public Long getId()            { return id; }
+    public Long getDoctorId()      { return doctorId; }
     public LocalDate getSlotDate() { return slotDate; }
-    public LocalTime getStartTime() { return startTime; }
-    public LocalTime getEndTime() { return endTime; }
-    public boolean isBooked() { return isBooked; }
+    public LocalTime getStartTime(){ return startTime; }
+    public LocalTime getEndTime()  { return endTime; }
+    public String getMode()        { return mode; }
+    public boolean isBooked()      { return isBooked; }
 }

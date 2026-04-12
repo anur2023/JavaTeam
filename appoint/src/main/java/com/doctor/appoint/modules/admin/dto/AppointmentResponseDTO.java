@@ -1,5 +1,8 @@
 package com.doctor.appoint.modules.admin.dto;
 
+import com.doctor.appoint.modules.appointment.entity.AvailabilitySlot;
+import com.doctor.appoint.modules.appointment.enums.AppointmentStatus;
+
 import java.time.LocalDateTime;
 
 public class AppointmentResponseDTO {
@@ -7,16 +10,18 @@ public class AppointmentResponseDTO {
     private Long appointmentId;
     private Long patientId;
     private Long doctorId;
-    private Long slotId;
+    private AvailabilitySlot slotId;
     private String mode;
-    private String status;
+    private
+    AppointmentStatus status;
     private LocalDateTime bookingTime;
 
     public AppointmentResponseDTO() {
     }
 
     public AppointmentResponseDTO(Long appointmentId, Long patientId, Long doctorId,
-                                  Long slotId, String mode, String status,
+                                  AvailabilitySlot slotId, String mode,
+                                  AppointmentStatus status,
                                   LocalDateTime bookingTime) {
         this.appointmentId = appointmentId;
         this.patientId = patientId;
@@ -51,11 +56,11 @@ public class AppointmentResponseDTO {
         this.doctorId = doctorId;
     }
 
-    public Long getSlotId() {
+    public AvailabilitySlot getSlotId() {
         return slotId;
     }
 
-    public void setSlotId(Long slotId) {
+    public void setSlotId(AvailabilitySlot slotId) {
         this.slotId = slotId;
     }
 
@@ -67,11 +72,12 @@ public class AppointmentResponseDTO {
         this.mode = mode;
     }
 
-    public String getStatus() {
+    public
+    AppointmentStatus getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(AppointmentStatus status) {
         this.status = status;
     }
 

@@ -14,6 +14,7 @@ public class AppointmentResponse {
     private LocalDate slotDate;
     private LocalTime startTime;
     private LocalTime endTime;
+    private String mode;
     private AppointmentStatus status;
     private String notes;
     private LocalDateTime createdAt;
@@ -21,8 +22,8 @@ public class AppointmentResponse {
     public AppointmentResponse(Long id, Long patientId, Long doctorId,
                                Long slotId, LocalDate slotDate,
                                LocalTime startTime, LocalTime endTime,
-                               AppointmentStatus status, String notes,
-                               LocalDateTime createdAt) {
+                               String mode, AppointmentStatus status,
+                               String notes, LocalDateTime createdAt) {
         this.id = id;
         this.patientId = patientId;
         this.doctorId = doctorId;
@@ -30,19 +31,21 @@ public class AppointmentResponse {
         this.slotDate = slotDate;
         this.startTime = startTime;
         this.endTime = endTime;
+        this.mode = mode;
         this.status = status;
         this.notes = notes;
         this.createdAt = createdAt;
     }
 
-    public Long getId() { return id; }
-    public Long getPatientId() { return patientId; }
-    public Long getDoctorId() { return doctorId; }
-    public Long getSlotId() { return slotId; }
-    public LocalDate getSlotDate() { return slotDate; }
-    public LocalTime getStartTime() { return startTime; }
-    public LocalTime getEndTime() { return endTime; }
+    public Long getId()                  { return id; }
+    public Long getPatientId()           { return patientId; }
+    public Long getDoctorId()            { return doctorId; }
+    public Long getSlotId()              { return slotId; }
+    public LocalDate getSlotDate()       { return slotDate; }
+    public LocalTime getStartTime()      { return startTime; }
+    public LocalTime getEndTime()        { return endTime; }
+    public String getMode()              { return mode; }
     public AppointmentStatus getStatus() { return status; }
-    public String getNotes() { return notes; }
-    public LocalDateTime getCreatedAt() { return createdAt; }
+    public String getNotes()             { return notes; }
+    public LocalDateTime getCreatedAt()  { return createdAt; }
 }
