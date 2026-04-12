@@ -1,5 +1,6 @@
 package doctor.example.appointment.Doctor.repository;
 
+import java.util.List;
 import doctor.example.appointment.Doctor.entity.Doctor;
 import org.springframework.data.jpa.repository.JpaRepository;
 
