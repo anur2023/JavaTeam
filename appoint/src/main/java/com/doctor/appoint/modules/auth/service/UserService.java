@@ -4,6 +4,7 @@ import com.doctor.appoint.modules.auth.Entity.Role;
 import com.doctor.appoint.modules.auth.Entity.Users;
 import com.doctor.appoint.modules.auth.dto.AuthResponse;
 import com.doctor.appoint.modules.auth.dto.LoginRequest;
+import com.doctor.appoint.modules.auth.dto.LoginResponse;
 import com.doctor.appoint.modules.auth.dto.RegisterRequest;
 import com.doctor.appoint.modules.auth.repository.UserRepository;
 import com.doctor.appoint.common.security.JwtUtil;
@@ -35,18 +36,18 @@ public class UserService {
         user.setPassword(passwordEncoder.encode(request.getPassword()));
         user.setRole(Role.valueOf(request.getRole().toUpperCase()));
         userRepository.save(user);
-        String token = jwtUtil.generateToken(user.getEmail(), user.getRole().name());
-        return new AuthResponse(token, user.getRole().name(), user.getName());
+//        String token = jwtUtil.generateToken(user.getEmail(), user.getRole().name());
+        return new AuthResponse( user.getRole().name(), user.getName());
     }
 
-    public AuthResponse login(LoginRequest request) {
+    public LoginResponse login(LoginRequest request) {
         Users user = userRepository.findByEmail(request.getEmail())
                 .orElseThrow(() -> new RuntimeException("Invalid email or password"));
         if (!passwordEncoder.matches(request.getPassword(), user.getPassword())) {
             throw new RuntimeException("Invalid email or password");
         }
         String token = jwtUtil.generateToken(user.getEmail(), user.getRole().name());
-        return new AuthResponse(token, user.getRole().name(), user.getName());
+        return new LoginResponse(token, user.getRole().name(), user.getName());
     }
 
     public Users getProfile(String email) {

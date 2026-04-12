@@ -1,17 +1,17 @@
 package com.doctor.appoint.modules.auth.dto;
 
-public class AuthResponse {
-//    private String token;
+public class LoginResponse {
+        private String token;
     private String role;
     private String name;
 
-    public AuthResponse(String role, String name) {
-//        this.token = token;
+    public  LoginResponse(String token,String role,String name){
+        this.token = token;
         this.role = role;
         this.name = name;
     }
-
-//    public String getToken() { return token; }
+        public String getToken() { return token; }
     public String getRole() { return role; }
     public String getName() { return name; }
 }
+
