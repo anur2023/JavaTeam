@@ -22,29 +22,13 @@ public class DoctorService {
     @Autowired
     private DoctorSpecialtyRepository doctorSpecialtyRepository;
 
-    public List<DoctorResponseDTO> getDoctorsBySpecialty(Long specialtyId) {
-
-        List<Long> doctorIds = new ArrayList<>();
-
-        List<com.doctor.appoint.modules.doctor.entity.DoctorSpecialty> mappings =
-                doctorSpecialtyRepository.findBySpecialtyId(specialtyId);
-
-        for (com.doctor.appoint.modules.doctor.entity.DoctorSpecialty mapping : mappings) {
-            doctorIds.add(mapping.getDoctorId());
-        }
-
-        List<Doctor> doctors = doctorRepository.findAllById(doctorIds);
-
-        List<DoctorResponseDTO> responseList = new ArrayList<>();
-
-        for (Doctor doctor : doctors) {
-            responseList.add(mapToResponse(doctor));
-        }
-
-        return responseList;
-    }
-
     public DoctorResponseDTO createDoctor(DoctorRequestDTO requestDTO) {
+        // Check if doctor profile already exists for this user
+        Optional<Doctor> existing = doctorRepository.findByUserId(requestDTO.getUserId());
+        if (existing.isPresent()) {
+            throw new RuntimeException(
+                    "Doctor profile already exists for userId: " + requestDTO.getUserId());
+        }
 
         Doctor doctor = new Doctor();
         doctor.setUserId(requestDTO.getUserId());
@@ -53,55 +37,63 @@ public class DoctorService {
         doctor.setConsultationFeeOffline(requestDTO.getConsultationFeeOffline());
         doctor.setCreatedAt(LocalDateTime.now());
 
-        Doctor savedDoctor = doctorRepository.save(doctor);
-
-        return mapToResponse(savedDoctor);
+        return mapToResponse(doctorRepository.save(doctor));
     }
 
     public List<DoctorResponseDTO> getAllDoctors() {
-
         List<Doctor> doctors = doctorRepository.findAll();
         List<DoctorResponseDTO> responseList = new ArrayList<>();
-
         for (Doctor doctor : doctors) {
             responseList.add(mapToResponse(doctor));
         }
-
         return responseList;
     }
 
     public DoctorResponseDTO getDoctorById(Long doctorId) {
-
-        Optional<Doctor> doctorOptional = doctorRepository.findById(doctorId);
-
-        if (doctorOptional.isPresent()) {
-            return mapToResponse(doctorOptional.get());
-        } else {
-            throw new RuntimeException("Doctor not found");
-        }
+        Doctor doctor = doctorRepository.findById(doctorId)
+                .orElseThrow(() -> new RuntimeException(
+                        "Doctor not found with doctorId: " + doctorId));
+        return mapToResponse(doctor);
     }
 
     public DoctorResponseDTO getDoctorByUserId(Long userId) {
+        Doctor doctor = doctorRepository.findByUserId(userId)
+                .orElseThrow(() -> new RuntimeException(
+                        "Doctor not found with userId: " + userId));
+        return mapToResponse(doctor);
+    }
 
-        Doctor doctor = doctorRepository.findByUserId(userId);
+    public List<DoctorResponseDTO> getDoctorsBySpecialty(Long specialtyId) {
+        List<Long> doctorIds = new ArrayList<>();
 
-        if (doctor != null) {
-            return mapToResponse(doctor);
-        } else {
-            throw new RuntimeException("Doctor not found with userId");
+        List<com.doctor.appoint.modules.doctor.entity.DoctorSpecialty> mappings =
+                doctorSpecialtyRepository.findBySpecialtyId(specialtyId);
+
+        if (mappings.isEmpty()) {
+            throw new RuntimeException(
+                    "No doctors found for specialtyId: " + specialtyId);
         }
+
+        for (com.doctor.appoint.modules.doctor.entity.DoctorSpecialty mapping : mappings) {
+            doctorIds.add(mapping.getDoctorId());
+        }
+
+        List<Doctor> doctors = doctorRepository.findAllById(doctorIds);
+        List<DoctorResponseDTO> responseList = new ArrayList<>();
+        for (Doctor doctor : doctors) {
+            responseList.add(mapToResponse(doctor));
+        }
+        return responseList;
     }
 
     private DoctorResponseDTO mapToResponse(Doctor doctor) {
-
-        DoctorResponseDTO responseDTO = new DoctorResponseDTO();
-        responseDTO.setDoctorId(doctor.getDoctorId());
-        responseDTO.setUserId(doctor.getUserId());
-        responseDTO.setExperienceYears(doctor.getExperienceYears());
-        responseDTO.setConsultationFeeOnline(doctor.getConsultationFeeOnline());
-        responseDTO.setConsultationFeeOffline(doctor.getConsultationFeeOffline());
-        responseDTO.setCreatedAt(doctor.getCreatedAt());
-
-        return responseDTO;
+        DoctorResponseDTO dto = new DoctorResponseDTO();
+        dto.setDoctorId(doctor.getDoctorId());
+        dto.setUserId(doctor.getUserId());
+        dto.setExperienceYears(doctor.getExperienceYears());
+        dto.setConsultationFeeOnline(doctor.getConsultationFeeOnline());
+        dto.setConsultationFeeOffline(doctor.getConsultationFeeOffline());
+        dto.setCreatedAt(doctor.getCreatedAt());
+        return dto;
     }
 }
