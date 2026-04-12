@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 import { useState } from "react";
 import { isLoggedIn, getRole } from "./utils/auth";
 import Navbar from "./components/Navbar";
@@ -47,14 +46,3 @@ export default function App() {
     </>
   );
 }
-=======
-import React from 'react'
-import ReactDOM from 'react-dom/client'
-import App from './App.jsx'
-
-ReactDOM.createRoot(document.getElementById('root')).render(
-    <React.StrictMode>
-        <App />
-    </React.StrictMode>,
-)
->>>>>>> 9b34be51ae78c5ec95914103a89763dafbc49d51
