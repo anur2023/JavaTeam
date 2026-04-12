@@ -1,6 +1,6 @@
 package com.doctor.appoint.modules.doctor.controller;
 
-import com.doctor.appoint.modules.doctor.entity.DoctorSpecialty;
+import com.doctor.appoint.modules.doctor.dto.response.DoctorSpecialtyResponse;
 import com.doctor.appoint.modules.doctor.service.DoctorSpecialtyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -15,18 +15,18 @@ public class DoctorSpecialtyController {
     private DoctorSpecialtyService doctorSpecialtyService;
 
     @PostMapping
-    public DoctorSpecialty addMapping(@RequestParam Long doctorId,
-                                      @RequestParam Long specialtyId) {
+    public DoctorSpecialtyResponse addMapping(@RequestParam Long doctorId,
+                                              @RequestParam Long specialtyId) {
         return doctorSpecialtyService.addMapping(doctorId, specialtyId);
     }
 
     @GetMapping("/doctor/{doctorId}")
-    public List<DoctorSpecialty> getByDoctorId(@PathVariable Long doctorId) {
+    public List<DoctorSpecialtyResponse> getByDoctorId(@PathVariable Long doctorId) {
         return doctorSpecialtyService.getByDoctorId(doctorId);
     }
 
     @GetMapping("/specialty/{specialtyId}")
-    public List<DoctorSpecialty> getBySpecialtyId(@PathVariable Long specialtyId) {
+    public List<DoctorSpecialtyResponse> getBySpecialtyId(@PathVariable Long specialtyId) {
         return doctorSpecialtyService.getBySpecialtyId(specialtyId);
     }
 
