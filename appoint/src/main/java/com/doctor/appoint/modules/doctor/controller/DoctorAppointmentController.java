@@ -1,4 +1,4 @@
-package com.doctor.appoint.modules.doctor.controller;//package com.doctor.appoint.modules.appointment.controller;
+package com.doctor.appoint.modules.doctor.controller;
 
 import com.doctor.appoint.modules.appointment.dto.AppointmentResponse;
 import com.doctor.appoint.modules.appointment.repository.AppointmentRepository;
@@ -36,19 +36,22 @@ public class DoctorAppointmentController {
         this.doctorRepository = doctorRepository;
     }
 
-    // Doctor views their own appointments
     @GetMapping("/my")
     public ResponseEntity<List<AppointmentResponse>> getMyAppointments(Authentication authentication) {
         String email = (String) authentication.getPrincipal();
 
+        // Step 1: Find logged-in user
         Users user = userRepository.findByEmail(email)
-                .orElseThrow(() -> new RuntimeException("User not found"));
+                .orElseThrow(() -> new RuntimeException(
+                        "User not found with email: " + email));
 
-        Doctor doctor = doctorRepository.findByUserId(user.getId());
-        if (doctor == null) {
-            throw new RuntimeException("Doctor profile not found for this user");
-        }
+        // Step 2: Find doctor profile linked to this user
+        Doctor doctor = doctorRepository.findByUserId(user.getId())
+                .orElseThrow(() -> new RuntimeException(
+                        "Doctor profile not found for userId: " + user.getId()
+                                + ". Please create a doctor profile first via POST /doctors"));
 
+        // Step 3: Fetch appointments by doctorId
         List<AppointmentResponse> responses = appointmentRepository
                 .findByDoctorId(doctor.getDoctorId())
                 .stream()
@@ -70,7 +73,6 @@ public class DoctorAppointmentController {
         return ResponseEntity.ok(responses);
     }
 
-    // Doctor marks appointment as COMPLETED, CANCELLED, or NO_SHOW
     @PutMapping("/{id}/status")
     public ResponseEntity<AppointmentResponse> updateStatus(
             @PathVariable Long id,
