@@ -28,24 +28,18 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
+                .cors(cors -> {}) // ✅ ADD THIS (VERY IMPORTANT)
                 .csrf(csrf -> csrf.disable())
                 .sessionManagement(session ->
                         session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth -> auth
-                        // Public
                         .requestMatchers("/auth/**").permitAll()
                         .requestMatchers("/swagger-ui/**", "/api-docs/**", "/swagger-ui.html").permitAll()
-                        // Admin only
                         .requestMatchers("/admin/**").hasRole("ADMIN")
-                        // Doctor + Admin manage slots
                         .requestMatchers(HttpMethod.POST, "/slots").hasAnyRole("DOCTOR", "ADMIN")
-                        // Doctor appointment management
                         .requestMatchers("/doctor-appointments/**").hasAnyRole("DOCTOR", "ADMIN")
-                        // Specialties write — admin only
                         .requestMatchers(HttpMethod.POST, "/specialties/**").hasRole("ADMIN")
-                        // Doctor profile create — admin only
                         .requestMatchers(HttpMethod.POST, "/doctors/**").hasRole("ADMIN")
-                        // Everything else — authenticated
                         .anyRequest().authenticated()
                 )
                 .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);

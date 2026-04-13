@@ -8,7 +8,7 @@ public class Specialty {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "specialty_id")
+//    @Column(name = "specialty_id")
     private Long specialtyId;
 
     @Column(name = "name", nullable = false, unique = true)
