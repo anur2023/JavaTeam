@@ -1,8 +1,8 @@
-package com.example.OnlineStationary.user.controller;
+package com.example.OnlineStationary.module.user.controller;
 
-import com.example.OnlineStationary.module.User.dto.request.UpdateUserRequest;
-import com.example.OnlineStationary.module.User.dto.response.UserResponse;
-import com.example.OnlineStationary.user.service.UserService;
+import com.example.OnlineStationary.module.user.dto.request.UpdateUserRequest;
+import com.example.OnlineStationary.module.user.dto.response.UserResponse;
+import com.example.OnlineStationary.module.user.service.UserService;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;

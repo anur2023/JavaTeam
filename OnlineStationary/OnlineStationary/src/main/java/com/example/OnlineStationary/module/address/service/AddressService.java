@@ -1,7 +1,8 @@
-package com.example.OnlineStationary.address.service;
+package com.example.OnlineStationary.module.address.service;
 
-import com.example.OnlineStationary.address.dto.request.AddressRequest;
-import com.example.OnlineStationary.address.dto.response.AddressResponse;
+import com.example.OnlineStationary.module.address.dto.request.AddressRequest;
+import com.example.OnlineStationary.module.address.dto.response.AddressResponse;
+
 import java.util.List;
 
 public interface AddressService {

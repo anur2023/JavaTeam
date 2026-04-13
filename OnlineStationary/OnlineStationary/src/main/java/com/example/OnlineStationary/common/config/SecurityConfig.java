@@ -32,17 +32,11 @@ public class SecurityConfig {
                 .sessionManagement(session ->
                         session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth -> auth
-
-                        // ── Auth: public ──────────────────────────────────────────
                         .requestMatchers("/auth/register", "/auth/login").permitAll()
-
-                        // ── Products/Categories/Brands: public read ───────────────
                         .requestMatchers(
                                 org.springframework.http.HttpMethod.GET,
                                 "/products/**", "/categories/**", "/brands/**"
                         ).permitAll()
-
-                        // ── Admin-only write operations ───────────────────────────
                         .requestMatchers(
                                 org.springframework.http.HttpMethod.POST,
                                 "/products/**", "/categories/**", "/brands/**"
@@ -55,8 +49,6 @@ public class SecurityConfig {
                                 org.springframework.http.HttpMethod.DELETE,
                                 "/products/**", "/categories/**", "/brands/**"
                         ).hasRole("ADMIN")
-
-                        // ── Everything else requires login ────────────────────────
                         .anyRequest().authenticated()
                 )
                 .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);

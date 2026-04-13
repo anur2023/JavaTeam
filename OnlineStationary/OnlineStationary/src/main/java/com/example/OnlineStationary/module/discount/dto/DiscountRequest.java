@@ -5,19 +5,18 @@ import java.time.LocalDate;
 
 public class DiscountRequest {
 
-    private String type;         // SEASONAL or COUPON
+    private String type;
     private BigDecimal value;
-    private String couponCode;   // null if SEASONAL
+    private String couponCode;
     private LocalDate validFrom;
     private LocalDate validTo;
 
-    // Getters and Setters
     public String getType() { return type; }
     public void setType(String type) { this.type = type; }
     public BigDecimal getValue() { return value; }
     public void setValue(BigDecimal value) { this.value = value; }
     public String getCouponCode() { return couponCode; }
-    public void setCouponCode(StringDiscountRequest couponCode) { this.couponCode = couponCode; }
+    public void setCouponCode(String couponCode) { this.couponCode = couponCode; }
     public LocalDate getValidFrom() { return validFrom; }
     public void setValidFrom(LocalDate validFrom) { this.validFrom = validFrom; }
     public LocalDate getValidTo() { return validTo; }

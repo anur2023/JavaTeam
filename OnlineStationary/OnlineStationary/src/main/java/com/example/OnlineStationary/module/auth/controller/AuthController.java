@@ -1,9 +1,9 @@
-package com.example.OnlineStationary.auth.controller;
+package com.example.OnlineStationary.module.auth.controller;
 
-import com.example.OnlineStationary.auth.dto.request.LoginRequest;
-import com.example.OnlineStationary.auth.dto.request.RegisterRequest;
-import com.example.OnlineStationary.auth.dto.response.AuthResponse;
-import com.example.OnlineStationary.auth.service.AuthService;
+import com.example.OnlineStationary.module.auth.dto.request.LoginRequest;
+import com.example.OnlineStationary.module.auth.dto.request.RegisterRequest;
+import com.example.OnlineStationary.module.auth.dto.response.AuthResponse;
+import com.example.OnlineStationary.module.auth.service.AuthService;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

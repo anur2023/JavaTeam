@@ -1,11 +1,12 @@
-package com.example.OnlineStationary.address.controller;
+package com.example.OnlineStationary.module.address.controller;
 
-import com.example.OnlineStationary.address.dto.request.AddressRequest;
-import com.example.OnlineStationary.address.dto.response.AddressResponse;
-import com.example.OnlineStationary.address.service.AddressService;
+import com.example.OnlineStationary.module.address.dto.request.AddressRequest;
+import com.example.OnlineStationary.module.address.dto.response.AddressResponse;
+import com.example.OnlineStationary.module.address.service.AddressService;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
 import java.util.List;
 
 @RestController

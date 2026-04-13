@@ -1,4 +1,4 @@
-package com.example.OnlineStationary.auth.entity;
+package com.example.OnlineStationary.module.auth.entity;
 
 import jakarta.persistence.*;
 
@@ -21,13 +21,10 @@ public class Role {
 
     public Role() {}
 
-    public Role(RoleName name) {
-        this.name = name;
-    }
+    public Role(RoleName name) { this.name = name; }
 
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
-
     public RoleName getName() { return name; }
     public void setName(RoleName name) { this.name = name; }
 }

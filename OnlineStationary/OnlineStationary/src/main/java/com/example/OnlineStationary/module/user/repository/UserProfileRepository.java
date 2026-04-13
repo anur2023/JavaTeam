@@ -1,6 +1,6 @@
-package com.example.OnlineStationary.module.User.repository;
+package com.example.OnlineStationary.module.user.repository;
 
-import com.example.OnlineStationary.module.User.entity.UserProfile;
+import com.example.OnlineStationary.module.user.entity.UserProfile;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

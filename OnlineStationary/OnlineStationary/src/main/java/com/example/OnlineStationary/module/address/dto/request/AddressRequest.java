@@ -1,8 +1,9 @@
-package com.example.OnlineStationary.address.dto.request;
+package com.example.OnlineStationary.module.address.dto.request;
 
 import jakarta.validation.constraints.NotBlank;
 
 public class AddressRequest {
+
     @NotBlank private String street;
     @NotBlank private String city;
     private String state;

@@ -1,7 +1,7 @@
-package com.example.OnlineStationary.auth;
+package com.example.OnlineStationary.module.auth;
 
-import com.example.OnlineStationary.auth.entity.Role;
-import com.example.OnlineStationary.auth.repository.RoleRepository;
+import com.example.OnlineStationary.module.auth.entity.Role;
+import com.example.OnlineStationary.module.auth.repository.RoleRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 

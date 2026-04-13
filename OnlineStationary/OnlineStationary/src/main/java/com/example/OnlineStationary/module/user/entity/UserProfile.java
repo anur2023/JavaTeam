@@ -1,10 +1,10 @@
-package com.example.OnlineStationary.module.User.entity;
+package com.example.OnlineStationary.module.user.entity;
 
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "users")  // same table — shared with UserAuth
+@Table(name = "users")
 public class UserProfile {
 
     @Id
@@ -28,7 +28,6 @@ public class UserProfile {
     @Column(name = "created_at")
     private LocalDateTime createdAt;
 
-    // Getters & Setters
     public Long getId() { return id; }
     public String getUsername() { return username; }
     public String getEmail() { return email; }

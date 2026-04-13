@@ -1,4 +1,4 @@
-package com.example.OnlineStationary.address.entity;
+package com.example.OnlineStationary.module.address.entity;
 
 import jakarta.persistence.*;
 
@@ -9,13 +9,21 @@ public class Address {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     private String street;
     private String city;
     private String state;
-    @Column(name = "postal_code") private String postalCode;
+
+    @Column(name = "postal_code")
+    private String postalCode;
+
     private String country;
-    @Column(name = "is_default")  private boolean isDefault;
-    @Column(name = "user_id")     private Long userId;
+
+    @Column(name = "is_default")
+    private boolean isDefault;
+
+    @Column(name = "user_id")
+    private Long userId;
 
     public Long getId() { return id; }
     public String getStreet() { return street; }

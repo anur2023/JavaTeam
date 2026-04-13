@@ -1,6 +1,6 @@
 package com.example.OnlineStationary.module.order.entity;
 
-import com.example.OnlineStationary.module.user.entity.User;
+import com.example.OnlineStationary.module.user.entity.UserProfile;
 import jakarta.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -18,7 +18,7 @@ public class Order {
 
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
-    private User user;
+    private UserProfile user;
 
     @Column(nullable = false)
     private BigDecimal totalAmount;
@@ -36,8 +36,8 @@ public class Order {
     // Getters and Setters
     public Long getOrderId() { return orderId; }
     public void setOrderId(Long orderId) { this.orderId = orderId; }
-    public User getUser() { return user; }
-    public void setUser(User user) { this.user = user; }
+    public UserProfile getUser() { return user; }
+    public void setUser(UserProfile user) { this.user = user; }
     public BigDecimal getTotalAmount() { return totalAmount; }
     public void setTotalAmount(BigDecimal totalAmount) { this.totalAmount = totalAmount; }
     public OrderStatus getStatus() { return status; }

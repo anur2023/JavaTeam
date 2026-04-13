@@ -1,6 +1,6 @@
-package com.example.OnlineStationary.auth.repository;
+package com.example.OnlineStationary.module.auth.repository;
 
-import com.example.OnlineStationary.auth.entity.UserAuth;
+import com.example.OnlineStationary.module.auth.entity.UserAuth;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 import java.util.Optional;

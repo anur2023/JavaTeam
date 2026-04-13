@@ -1,4 +1,4 @@
-package com.example.OnlineStationary.module.User.dto.request;
+package com.example.OnlineStationary.module.user.dto.request;
 
 import jakarta.validation.constraints.Size;
 

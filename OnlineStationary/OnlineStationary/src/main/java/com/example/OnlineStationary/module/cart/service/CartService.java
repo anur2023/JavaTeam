@@ -8,8 +8,8 @@ import com.example.OnlineStationary.module.cart.repository.CartItemRepository;
 import com.example.OnlineStationary.module.cart.repository.CartRepository;
 import com.example.OnlineStationary.module.product.entity.Product;
 import com.example.OnlineStationary.module.product.repository.ProductRepository;
-import com.example.OnlineStationary.module.user.entity.User;
-import com.example.OnlineStationary.module.user.repository.UserRepository;
+import com.example.OnlineStationary.module.user.entity.UserProfile;
+import com.example.OnlineStationary.module.user.repository.UserProfileRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -24,7 +24,7 @@ public class CartService {
     @Autowired private CartRepository cartRepository;
     @Autowired private CartItemRepository cartItemRepository;
     @Autowired private ProductRepository productRepository;
-    @Autowired private UserRepository userRepository;
+    @Autowired private UserProfileRepository userRepository;
 
     public CartResponse getCart(Long userId) {
         Cart cart = cartRepository.findByUserUserId(userId)
@@ -33,7 +33,7 @@ public class CartService {
     }
 
     public CartResponse addToCart(Long userId, CartItemRequest request) {
-        User user = userRepository.findById(userId)
+        UserProfile user = userRepository.findById(userId)
                 .orElseThrow(() -> new RuntimeException("User not found"));
 
         Cart cart = cartRepository.findByUserUserId(userId).orElseGet(() -> {

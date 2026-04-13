@@ -1,13 +1,13 @@
-package com.example.OnlineStationary.auth.service;
+package com.example.OnlineStationary.module.auth.service;
 
-import com.example.OnlineStationary.auth.dto.request.LoginRequest;
-import com.example.OnlineStationary.auth.dto.request.RegisterRequest;
-import com.example.OnlineStationary.auth.dto.response.AuthResponse;
-import com.example.OnlineStationary.auth.entity.Role;
-import com.example.OnlineStationary.auth.entity.UserAuth;
-import com.example.OnlineStationary.auth.repository.RoleRepository;
-import com.example.OnlineStationary.auth.repository.UserAuthRepository;
-import com.example.OnlineStationary.auth.security.JwtUtils;
+import com.example.OnlineStationary.common.security.JwtUtils;
+import com.example.OnlineStationary.module.auth.dto.request.LoginRequest;
+import com.example.OnlineStationary.module.auth.dto.request.RegisterRequest;
+import com.example.OnlineStationary.module.auth.dto.response.AuthResponse;
+import com.example.OnlineStationary.module.auth.entity.Role;
+import com.example.OnlineStationary.module.auth.entity.UserAuth;
+import com.example.OnlineStationary.module.auth.repository.RoleRepository;
+import com.example.OnlineStationary.module.auth.repository.UserAuthRepository;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -48,7 +48,7 @@ public class AuthServiceImpl implements AuthService {
         }
 
         Role userRole = roleRepository.findByName(Role.RoleName.ROLE_USER)
-                .orElseThrow(() -> new RuntimeException("Default role not found. Run DataInitializer first."));
+                .orElseThrow(() -> new RuntimeException("Default role not found"));
 
         UserAuth user = new UserAuth();
         user.setUsername(request.getUsername());
