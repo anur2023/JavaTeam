@@ -1,4 +1,7 @@
+<<<<<<< HEAD
 
+=======
+>>>>>>> 3b1a3c80a0789bbdafae826e54cfb33903a60530
 import { useState } from "react";
 import { isLoggedIn, getRole } from "./utils/auth";
 import Navbar from "./components/Navbar";
@@ -46,6 +49,10 @@ export default function App() {
       {renderPage()}
     </>
   );
+<<<<<<< HEAD
 }
 
 
+=======
+}
+>>>>>>> 3b1a3c80a0789bbdafae826e54cfb33903a60530
