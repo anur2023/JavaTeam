@@ -2,21 +2,17 @@ package doctor.example.appointment.Doctor.service;
 
 import doctor.example.appointment.Doctor.entity.Doctor;
 import doctor.example.appointment.Doctor.repository.DoctorRepository;
-import doctor.example.appointment.module.auth.repository.UserRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class DoctorService {
 
-    private DoctorRepository doctorRepository;
-    private UserRepository userRepository;
+    private final DoctorRepository doctorRepository;
 
-    public DoctorService(DoctorRepository doctorRepository, UserRepository userRepository) {
+    public DoctorService(DoctorRepository doctorRepository) {
         this.doctorRepository = doctorRepository;
-        this.userRepository = userRepository;
     }
 
     public Doctor addDoctor(Doctor doctor) {
@@ -28,8 +24,8 @@ public class DoctorService {
     }
 
     public Doctor getDoctorById(long id) {
-        Optional<Doctor> doctor = doctorRepository.findById(id);
-        return doctor.orElse(null);
+        return doctorRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Doctor not found"));
     }
 
     public void deleteDoctor(long id) {
@@ -37,20 +33,15 @@ public class DoctorService {
     }
 
     public Doctor updateDoctor(long id, Doctor updatedDoctor) {
-        Optional<Doctor> existingDoctorOptional = doctorRepository.findById(id);
 
-        if (existingDoctorOptional.isPresent()) {
-            Doctor existingDoctor = existingDoctorOptional.get();
+        Doctor existingDoctor = doctorRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Doctor not found"));
 
-            existingDoctor.setName(updatedDoctor.getName());
-            existingDoctor.setSpecialization(updatedDoctor.getSpecialization());
-            existingDoctor.setEmail(updatedDoctor.getEmail());
-            existingDoctor.setPhone(updatedDoctor.getPhone());
-            existingDoctor.setExperience(updatedDoctor.getExperience());
+        existingDoctor.setUserId(updatedDoctor.getUserId());
+        existingDoctor.setExperienceYears(updatedDoctor.getExperienceYears());
+        existingDoctor.setOnlineFee(updatedDoctor.getOnlineFee());
+        existingDoctor.setOfflineFee(updatedDoctor.getOfflineFee());
 
-            return doctorRepository.save(existingDoctor);
-        } else {
-            return null;
-        }
+        return doctorRepository.save(existingDoctor);
     }
 }
