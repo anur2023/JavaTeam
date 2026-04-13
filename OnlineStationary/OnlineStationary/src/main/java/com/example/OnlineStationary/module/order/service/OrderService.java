@@ -30,7 +30,7 @@ public class OrderService {
 
     @Transactional
     public OrderResponse placeOrder(Long userId, String couponCode) {
-        Cart cart = cartRepository.findByUserUserId(userId)
+        Cart cart = cartRepository.findByUserId(userId)
                 .orElseThrow(() -> new RuntimeException("Cart is empty"));
 
         if (cart.getCartItems() == null || cart.getCartItems().isEmpty()) {
@@ -73,7 +73,7 @@ public class OrderService {
     }
 
     public List<OrderResponse> getOrdersByUser(Long userId) {
-        List<Order> orders = orderRepository.findByUserUserIdOrderByCreatedAtDesc(userId);
+        List<Order> orders = orderRepository.findByUser_IdOrderByCreatedAtDesc(userId);
         List<OrderResponse> responses = new ArrayList<>();
         for (Order order : orders) {
             responses.add(buildOrderResponse(order));

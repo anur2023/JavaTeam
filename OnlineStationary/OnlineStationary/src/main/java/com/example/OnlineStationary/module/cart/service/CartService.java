@@ -21,13 +21,17 @@ import java.util.Optional;
 @Service
 public class CartService {
 
-    @Autowired private CartRepository cartRepository;
-    @Autowired private CartItemRepository cartItemRepository;
-    @Autowired private ProductRepository productRepository;
-    @Autowired private UserProfileRepository userRepository;
+    @Autowired
+    private CartRepository cartRepository;
+    @Autowired
+    private CartItemRepository cartItemRepository;
+    @Autowired
+    private ProductRepository productRepository;
+    @Autowired
+    private UserProfileRepository userRepository;
 
     public CartResponse getCart(Long userId) {
-        Cart cart = cartRepository.findByUserUserId(userId)
+        Cart cart = cartRepository.findByUserId(userId)
                 .orElseThrow(() -> new RuntimeException("Cart not found"));
         return buildCartResponse(cart);
     }
@@ -36,7 +40,7 @@ public class CartService {
         UserProfile user = userRepository.findById(userId)
                 .orElseThrow(() -> new RuntimeException("User not found"));
 
-        Cart cart = cartRepository.findByUserUserId(userId).orElseGet(() -> {
+        Cart cart = cartRepository.findByUserId(userId).orElseGet(() -> {
             Cart newCart = new Cart();
             newCart.setUser(user);
             return cartRepository.save(newCart);
@@ -60,7 +64,7 @@ public class CartService {
             cartItemRepository.save(newItem);
         }
 
-        return buildCartResponse(cartRepository.findByUserUserId(userId).get());
+        return buildCartResponse(cartRepository.findByUserId(userId).get());
     }
 
     public CartResponse updateCartItem(Long cartItemId, Integer quantity) {
@@ -76,7 +80,7 @@ public class CartService {
     }
 
     public void clearCart(Long userId) {
-        Cart cart = cartRepository.findByUserUserId(userId)
+        Cart cart = cartRepository.findByUserId(userId)
                 .orElseThrow(() -> new RuntimeException("Cart not found"));
         cart.getCartItems().clear();
         cartRepository.save(cart);
