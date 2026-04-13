@@ -9,11 +9,13 @@
         <module name="appoint" />
         <module name="practice" />
         <module name="appointment" />
+        <module name="OnlineStationary" />
       </profile>
     </annotationProcessing>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="OnlineStationary" options="-parameters" />
       <module name="appoint" options="-parameters" />
       <module name="appointment" options="-parameters" />
       <module name="practice" options="-parameters" />

@@ -12,6 +12,8 @@ import MyAppointments from "./pages/MyAppointments";
 import DoctorAppointments from "./pages/DoctorAppointments";
 import ManageSlots from "./pages/ManageSlots";
 import AdminDashboard from "./pages/AdminDashboard";
+import './App.css';
+import './index.css'
 
 function getInitialPage() {
   if (!isLoggedIn()) return "login";
