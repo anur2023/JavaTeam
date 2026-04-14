@@ -4,7 +4,7 @@
 function CartItem({ item, onQuantityChange, onRemove }) {
     return (
         <div style={styles.row}>
-            {/* Product name + category */}
+            {/* Product name + price */}
             <div style={styles.info}>
                 <p style={styles.name}>{item.productName}</p>
                 <p style={styles.price}>₹{Number(item.priceAtAdded).toLocaleString()} each</p>
@@ -46,9 +46,7 @@ const styles = {
         padding: '12px 0',
         borderBottom: '1px solid #e8e6e0',
     },
-    info: {
-        flex: 1,
-    },
+    info: { flex: 1 },
     name: {
         fontFamily: "Georgia, serif",
         fontWeight: '700',
@@ -72,7 +70,7 @@ const styles = {
         borderRadius: '2px',
         background: '#f5f4f0',
         cursor: 'pointer',
-        fontFamily: "inherit",
+        fontFamily: 'inherit',
         fontSize: '16px',
         display: 'flex',
         alignItems: 'center',

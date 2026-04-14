@@ -5,7 +5,7 @@ import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { cartService } from '../services/cartService';
 import { getUserId }   from '../utils/auth';
-import CartItem        from '../components/CartItem';
+import CardItem        from '../components/CardItem';
 
 function Cart() {
     const navigate = useNavigate();
