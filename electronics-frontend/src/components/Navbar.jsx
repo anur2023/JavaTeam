@@ -39,7 +39,7 @@ function Navbar() {
 
                             {/* Vendor: manage products */}
                             {role === 'VENDOR' && (
-                                <Link to="/vendor/products" style={styles.link}>My Products</Link>
+                                <Link to="/vendor/products" style={styles.link}>MyProducts</Link>
                             )}
 
                             {/* Admin: all orders and users */}
