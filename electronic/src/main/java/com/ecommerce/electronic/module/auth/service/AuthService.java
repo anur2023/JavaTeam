@@ -18,7 +18,7 @@ public class AuthService {
     private UserRepository userRepository;
 
     @Autowired
-    private com.ecommerce.electronic.module.common.util.JwtUtil jwtUtil;
+    private com.ecommerce.electronic.common.util.JwtUtil jwtUtil;
 
 //    private final BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder()
 @Autowired
