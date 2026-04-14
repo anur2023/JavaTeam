@@ -6,7 +6,7 @@ import com.ecommerce.electronic.module.auth.dto.RegisterRequestDto;
 import com.ecommerce.electronic.module.auth.dto.RegisterResponseDto;
 import com.ecommerce.electronic.module.auth.entity.User;
 import com.ecommerce.electronic.module.auth.repository.UserRepository;
-//import com.ecommerce.electronic.common.util
+import com.ecommerce.electronic.common.util.JwtUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -18,14 +18,12 @@ public class AuthService {
     private UserRepository userRepository;
 
     @Autowired
-    private com.ecommerce.electronic.common.util.JwtUtil jwtUtil;
+    private JwtUtil jwtUtil;
 
-//    private final BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder()
-@Autowired
-private BCryptPasswordEncoder passwordEncoder;
+    @Autowired
+    private BCryptPasswordEncoder passwordEncoder;
 
     public RegisterResponseDto register(RegisterRequestDto dto) {
-
         if (userRepository.existsByEmail(dto.getEmail())) {
             throw new RuntimeException("Email already exists");
         }
@@ -49,7 +47,6 @@ private BCryptPasswordEncoder passwordEncoder;
     }
 
     public LoginResponseDto login(LoginRequestDto dto) {
-
         User user = userRepository.findByEmail(dto.getEmail())
                 .orElseThrow(() -> new RuntimeException("Invalid email or password"));
 
@@ -59,6 +56,6 @@ private BCryptPasswordEncoder passwordEncoder;
 
         String token = jwtUtil.generateToken(user.getEmail(), user.getRole().name());
 
-        return new LoginResponseDto(token, user.getRole());
+        return new LoginResponseDto(token, user.getRole(), user.getId(), user.getName(), user.getEmail());
     }
 }

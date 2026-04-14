@@ -13,6 +13,8 @@ public class ProductResponse {
     private String imageUrl;
     private String specs;
     private String categoryName;
+    private Long categoryId;
+    private Long vendorId;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
 
@@ -41,6 +43,12 @@ public class ProductResponse {
 
     public String getCategoryName() { return categoryName; }
     public void setCategoryName(String categoryName) { this.categoryName = categoryName; }
+
+    public Long getCategoryId() { return categoryId; }
+    public void setCategoryId(Long categoryId) { this.categoryId = categoryId; }
+
+    public Long getVendorId() { return vendorId; }
+    public void setVendorId(Long vendorId) { this.vendorId = vendorId; }
 
     public LocalDateTime getCreatedAt() { return createdAt; }
     public void setCreatedAt(LocalDateTime createdAt) { this.createdAt = createdAt; }

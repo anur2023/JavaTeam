@@ -1,5 +1,6 @@
 package com.ecommerce.electronic.module.order.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import java.time.LocalDate;
 
@@ -13,6 +14,7 @@ public class Warranty {
 
     @OneToOne
     @JoinColumn(name = "order_item_id", nullable = false)
+    @JsonIgnoreProperties({"warranty", "order"})
     private OrderItem orderItem;
 
     @Column(name = "start_date", nullable = false)
@@ -24,46 +26,20 @@ public class Warranty {
     @Column(nullable = false)
     private String status;
 
-    public Warranty() {
-    }
+    public Warranty() {}
 
-    public Long getId() {
-        return id;
-    }
+    public Long getId() { return id; }
+    public void setId(Long id) { this.id = id; }
 
-    public OrderItem getOrderItem() {
-        return orderItem;
-    }
+    public OrderItem getOrderItem() { return orderItem; }
+    public void setOrderItem(OrderItem orderItem) { this.orderItem = orderItem; }
 
-    public LocalDate getStartDate() {
-        return startDate;
-    }
+    public LocalDate getStartDate() { return startDate; }
+    public void setStartDate(LocalDate startDate) { this.startDate = startDate; }
 
-    public LocalDate getExpiryDate() {
-        return expiryDate;
-    }
+    public LocalDate getExpiryDate() { return expiryDate; }
+    public void setExpiryDate(LocalDate expiryDate) { this.expiryDate = expiryDate; }
 
-    public String getStatus() {
-        return status;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public void setOrderItem(OrderItem orderItem) {
-        this.orderItem = orderItem;
-    }
-
-    public void setStartDate(LocalDate startDate) {
-        this.startDate = startDate;
-    }
-
-    public void setExpiryDate(LocalDate expiryDate) {
-        this.expiryDate = expiryDate;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
-    }
+    public String getStatus() { return status; }
+    public void setStatus(String status) { this.status = status; }
 }

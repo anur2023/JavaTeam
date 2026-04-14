@@ -35,15 +35,13 @@ public class ProductService {
         product.setImageUrl(request.getImageUrl());
         product.setSpecs(request.getSpecs());
         product.setCategory(category);
+        product.setVendorId(request.getVendorId());
 
         return toResponse(productRepository.save(product));
     }
 
     public List<ProductResponse> getAllProducts() {
-        return productRepository.findAll()
-                .stream()
-                .map(this::toResponse)
-                .collect(Collectors.toList());
+        return productRepository.findAll().stream().map(this::toResponse).collect(Collectors.toList());
     }
 
     public ProductResponse getProductById(Long id) {
@@ -66,6 +64,9 @@ public class ProductService {
         product.setImageUrl(request.getImageUrl());
         product.setSpecs(request.getSpecs());
         product.setCategory(category);
+        if (request.getVendorId() != null) {
+            product.setVendorId(request.getVendorId());
+        }
 
         return toResponse(productRepository.save(product));
     }
@@ -78,24 +79,15 @@ public class ProductService {
     }
 
     public List<ProductResponse> getProductsByCategory(Long categoryId) {
-        return productRepository.findByCategoryId(categoryId)
-                .stream()
-                .map(this::toResponse)
-                .collect(Collectors.toList());
+        return productRepository.findByCategoryId(categoryId).stream().map(this::toResponse).collect(Collectors.toList());
     }
 
     public List<ProductResponse> searchProducts(String name) {
-        return productRepository.findByNameContainingIgnoreCase(name)
-                .stream()
-                .map(this::toResponse)
-                .collect(Collectors.toList());
+        return productRepository.findByNameContainingIgnoreCase(name).stream().map(this::toResponse).collect(Collectors.toList());
     }
 
     public List<ProductResponse> compareProducts(List<Long> ids) {
-        return productRepository.findAllByIds(ids)
-                .stream()
-                .map(this::toResponse)
-                .collect(Collectors.toList());
+        return productRepository.findAllByIds(ids).stream().map(this::toResponse).collect(Collectors.toList());
     }
 
     private ProductResponse toResponse(Product product) {
@@ -107,7 +99,11 @@ public class ProductService {
         response.setStock(product.getStock());
         response.setImageUrl(product.getImageUrl());
         response.setSpecs(product.getSpecs());
-        response.setCategoryName(product.getCategory() != null ? product.getCategory().getName() : null);
+        response.setVendorId(product.getVendorId());
+        if (product.getCategory() != null) {
+            response.setCategoryName(product.getCategory().getName());
+            response.setCategoryId(product.getCategory().getId());
+        }
         response.setCreatedAt(product.getCreatedAt());
         response.setUpdatedAt(product.getUpdatedAt());
         return response;

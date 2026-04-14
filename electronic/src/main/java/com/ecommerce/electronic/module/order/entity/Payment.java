@@ -1,5 +1,6 @@
 package com.ecommerce.electronic.module.order.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 
 @Entity
@@ -12,7 +13,11 @@ public class Payment {
 
     @OneToOne
     @JoinColumn(name = "order_id", nullable = false)
+    @JsonIgnoreProperties({"orderItems", "payment"})
     private Order order;
+
+    @Column(name = "order_id", insertable = false, updatable = false)
+    private Long orderId;
 
     @Column(nullable = false)
     private Double amount;
@@ -23,46 +28,22 @@ public class Payment {
     @Column(name = "transaction_id")
     private String transactionId;
 
-    public Payment() {
-    }
+    public Payment() {}
 
-    public Long getId() {
-        return id;
-    }
+    public Long getId() { return id; }
+    public void setId(Long id) { this.id = id; }
 
-    public Order getOrder() {
-        return order;
-    }
+    public Order getOrder() { return order; }
+    public void setOrder(Order order) { this.order = order; }
 
-    public Double getAmount() {
-        return amount;
-    }
+    public Long getOrderId() { return orderId; }
 
-    public String getStatus() {
-        return status;
-    }
+    public Double getAmount() { return amount; }
+    public void setAmount(Double amount) { this.amount = amount; }
 
-    public String getTransactionId() {
-        return transactionId;
-    }
+    public String getStatus() { return status; }
+    public void setStatus(String status) { this.status = status; }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public void setOrder(Order order) {
-        this.order = order;
-    }
-
-    public void setAmount(Double amount) {
-        this.amount = amount;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
-    }
-
-    public void setTransactionId(String transactionId) {
-        this.transactionId = transactionId;
-    }
+    public String getTransactionId() { return transactionId; }
+    public void setTransactionId(String transactionId) { this.transactionId = transactionId; }
 }

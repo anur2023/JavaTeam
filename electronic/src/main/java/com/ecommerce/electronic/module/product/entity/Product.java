@@ -27,6 +27,9 @@ public class Product {
 
     private String specs;
 
+    @Column(name = "vendor_id")
+    private Long vendorId;
+
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "category_id")
     private Category category;
@@ -69,6 +72,9 @@ public class Product {
 
     public String getSpecs() { return specs; }
     public void setSpecs(String specs) { this.specs = specs; }
+
+    public Long getVendorId() { return vendorId; }
+    public void setVendorId(Long vendorId) { this.vendorId = vendorId; }
 
     public Category getCategory() { return category; }
     public void setCategory(Category category) { this.category = category; }

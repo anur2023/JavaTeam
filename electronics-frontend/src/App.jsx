@@ -9,11 +9,19 @@ import Cart from './pages/Cart';
 import Checkout from './pages/Checkout';
 import Orders from './pages/Orders';
 import ServiceRequest from './pages/ServiceRequest';
-import { getToken } from './utils/auth';
+import VendorProducts from './pages/VendorProducts';
+import AdminOrders from './pages/AdminOrders';
+import AdminUsers from './pages/AdminUsers';
+import { getToken, getRole } from './utils/auth';
 
-// ProtectedRoute: redirects to /login if no token
-function ProtectedRoute({ children }) {
-    return getToken() ? children : <Navigate to="/login" />;
+function ProtectedRoute({ children, roles }) {
+    if (!getToken()) return <Navigate to="/login" />;
+    if (roles && !roles.includes(getRole())) {
+        return <div style={{ padding: '40px', textAlign: 'center', color: '#c8401a' }}>
+            Access denied. You do not have permission to view this page.
+        </div>;
+    }
+    return children;
 }
 
 function App() {
@@ -22,17 +30,52 @@ function App() {
             <Navbar />
             <main style={{ padding: '20px', maxWidth: '1100px', margin: '0 auto' }}>
                 <Routes>
-                    <Route path="/" element={<Home />} />
-                    <Route path="/login" element={<Login />} />
-                    <Route path="/register" element={<Register />} />
-                    <Route path="/products" element={<ProductList />} />
+                    <Route path="/"          element={<Home />} />
+                    <Route path="/login"     element={<Login />} />
+                    <Route path="/register"  element={<Register />} />
+                    <Route path="/products"  element={<ProductList />} />
                     <Route path="/products/:id" element={<ProductDetails />} />
 
-                    {/* Protected routes */}
-                    <Route path="/cart" element={<ProtectedRoute><Cart /></ProtectedRoute>} />
-                    <Route path="/checkout" element={<ProtectedRoute><Checkout /></ProtectedRoute>} />
-                    <Route path="/orders" element={<ProtectedRoute><Orders /></ProtectedRoute>} />
-                    <Route path="/service-request" element={<ProtectedRoute><ServiceRequest /></ProtectedRoute>} />
+                    {/* Customer + Vendor */}
+                    <Route path="/cart" element={
+                        <ProtectedRoute roles={['CUSTOMER', 'VENDOR', 'ADMIN']}>
+                            <Cart />
+                        </ProtectedRoute>
+                    } />
+                    <Route path="/checkout" element={
+                        <ProtectedRoute roles={['CUSTOMER', 'VENDOR', 'ADMIN']}>
+                            <Checkout />
+                        </ProtectedRoute>
+                    } />
+                    <Route path="/orders" element={
+                        <ProtectedRoute roles={['CUSTOMER', 'VENDOR', 'ADMIN']}>
+                            <Orders />
+                        </ProtectedRoute>
+                    } />
+                    <Route path="/service-request" element={
+                        <ProtectedRoute roles={['CUSTOMER', 'VENDOR', 'ADMIN']}>
+                            <ServiceRequest />
+                        </ProtectedRoute>
+                    } />
+
+                    {/* Vendor only */}
+                    <Route path="/vendor/products" element={
+                        <ProtectedRoute roles={['VENDOR', 'ADMIN']}>
+                            <VendorProducts />
+                        </ProtectedRoute>
+                    } />
+
+                    {/* Admin only */}
+                    <Route path="/admin/orders" element={
+                        <ProtectedRoute roles={['ADMIN']}>
+                            <AdminOrders />
+                        </ProtectedRoute>
+                    } />
+                    <Route path="/admin/users" element={
+                        <ProtectedRoute roles={['ADMIN']}>
+                            <AdminUsers />
+                        </ProtectedRoute>
+                    } />
                 </Routes>
             </main>
         </BrowserRouter>

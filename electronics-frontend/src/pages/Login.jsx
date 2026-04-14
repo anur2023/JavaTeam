@@ -1,6 +1,3 @@
-// pages/Login.jsx
-// Simple login form. On success, saves JWT token and redirects to home.
-
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { authService } from '../services/authService';
@@ -20,14 +17,8 @@ function Login() {
         setLoading(true);
 
         try {
-            // Call POST /auth/login
             const data = await authService.login(email, password);
-
-            // data = { token: '...', role: 'CUSTOMER' }
-            // Note: backend doesn't return userId in login response,
-            // so we save what we can. userId can be fetched later if needed.
-            saveUserInfo(data.token, data.role);
-
+            saveUserInfo(data.token, data.role, data.userId, data.name);
             navigate('/');
         } catch (err) {
             setError(err.message || 'Login failed. Check your credentials.');
@@ -86,31 +77,11 @@ function Login() {
 }
 
 const styles = {
-    wrapper: {
-        display: 'flex',
-        justifyContent: 'center',
-        paddingTop: '60px',
-    },
-    box: {
-        width: '100%',
-        maxWidth: '400px',
-    },
-    title: {
-        fontFamily: "Georgia, serif",
-        fontSize: '24px',
-        marginBottom: '4px',
-    },
-    sub: {
-        color: '#6b6b66',
-        fontSize: '13px',
-        marginBottom: '20px',
-    },
-    footer: {
-        marginTop: '16px',
-        fontSize: '13px',
-        textAlign: 'center',
-        color: '#6b6b66',
-    },
+    wrapper: { display: 'flex', justifyContent: 'center', paddingTop: '60px' },
+    box:     { width: '100%', maxWidth: '400px' },
+    title:   { fontFamily: "Georgia, serif", fontSize: '24px', marginBottom: '4px' },
+    sub:     { color: '#6b6b66', fontSize: '13px', marginBottom: '20px' },
+    footer:  { marginTop: '16px', fontSize: '13px', textAlign: 'center', color: '#6b6b66' },
 };
 
 export default Login;

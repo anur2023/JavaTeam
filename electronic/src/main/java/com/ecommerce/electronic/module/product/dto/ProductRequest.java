@@ -11,6 +11,7 @@ public class ProductRequest {
     private String imageUrl;
     private String specs;
     private Long categoryId;
+    private Long vendorId;
 
     public ProductRequest() {}
 
@@ -34,4 +35,7 @@ public class ProductRequest {
 
     public Long getCategoryId() { return categoryId; }
     public void setCategoryId(Long categoryId) { this.categoryId = categoryId; }
+
+    public Long getVendorId() { return vendorId; }
+    public void setVendorId(Long vendorId) { this.vendorId = vendorId; }
 }

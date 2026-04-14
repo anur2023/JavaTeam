@@ -1,5 +1,6 @@
 package com.ecommerce.electronic.module.order.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 
 @Entity
@@ -15,6 +16,7 @@ public class ServiceRequest {
 
     @ManyToOne
     @JoinColumn(name = "warranty_id", nullable = false)
+    @JsonIgnoreProperties("orderItem")
     private Warranty warranty;
 
     @Column(name = "issue_description", nullable = false, length = 1000)
@@ -23,46 +25,20 @@ public class ServiceRequest {
     @Column(nullable = false)
     private String status;
 
-    public ServiceRequest() {
-    }
+    public ServiceRequest() {}
 
-    public Long getId() {
-        return id;
-    }
+    public Long getId() { return id; }
+    public void setId(Long id) { this.id = id; }
 
-    public Long getUserId() {
-        return userId;
-    }
+    public Long getUserId() { return userId; }
+    public void setUserId(Long userId) { this.userId = userId; }
 
-    public Warranty getWarranty() {
-        return warranty;
-    }
+    public Warranty getWarranty() { return warranty; }
+    public void setWarranty(Warranty warranty) { this.warranty = warranty; }
 
-    public String getIssueDescription() {
-        return issueDescription;
-    }
+    public String getIssueDescription() { return issueDescription; }
+    public void setIssueDescription(String issueDescription) { this.issueDescription = issueDescription; }
 
-    public String getStatus() {
-        return status;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public void setUserId(Long userId) {
-        this.userId = userId;
-    }
-
-    public void setWarranty(Warranty warranty) {
-        this.warranty = warranty;
-    }
-
-    public void setIssueDescription(String issueDescription) {
-        this.issueDescription = issueDescription;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
-    }
+    public String getStatus() { return status; }
+    public void setStatus(String status) { this.status = status; }
 }

@@ -1,5 +1,6 @@
 package com.ecommerce.electronic.module.order.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 
 @Entity
@@ -12,6 +13,7 @@ public class OrderItem {
 
     @ManyToOne
     @JoinColumn(name = "order_id", nullable = false)
+    @JsonIgnoreProperties({"orderItems", "payment"})
     private Order order;
 
     @Column(name = "product_id", nullable = false)
@@ -24,56 +26,26 @@ public class OrderItem {
     private Double price;
 
     @OneToOne(mappedBy = "orderItem", cascade = CascadeType.ALL)
+    @JsonIgnoreProperties("orderItem")
     private Warranty warranty;
 
-    public OrderItem() {
-    }
+    public OrderItem() {}
 
-    public Long getId() {
-        return id;
-    }
+    public Long getId() { return id; }
+    public void setId(Long id) { this.id = id; }
 
-    public Order getOrder() {
-        return order;
-    }
+    public Order getOrder() { return order; }
+    public void setOrder(Order order) { this.order = order; }
 
-    public Long getProductId() {
-        return productId;
-    }
+    public Long getProductId() { return productId; }
+    public void setProductId(Long productId) { this.productId = productId; }
 
-    public Integer getQuantity() {
-        return quantity;
-    }
+    public Integer getQuantity() { return quantity; }
+    public void setQuantity(Integer quantity) { this.quantity = quantity; }
 
-    public Double getPrice() {
-        return price;
-    }
+    public Double getPrice() { return price; }
+    public void setPrice(Double price) { this.price = price; }
 
-    public Warranty getWarranty() {
-        return warranty;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public void setOrder(Order order) {
-        this.order = order;
-    }
-
-    public void setProductId(Long productId) {
-        this.productId = productId;
-    }
-
-    public void setQuantity(Integer quantity) {
-        this.quantity = quantity;
-    }
-
-    public void setPrice(Double price) {
-        this.price = price;
-    }
-
-    public void setWarranty(Warranty warranty) {
-        this.warranty = warranty;
-    }
+    public Warranty getWarranty() { return warranty; }
+    public void setWarranty(Warranty warranty) { this.warranty = warranty; }
 }
