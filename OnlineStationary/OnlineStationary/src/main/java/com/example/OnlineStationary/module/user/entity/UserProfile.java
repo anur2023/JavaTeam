@@ -1,4 +1,4 @@
-package com.example.OnlineStationary.module.user.entity;
+package com.example.OnlineStationary.module.User.entity;
 
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
