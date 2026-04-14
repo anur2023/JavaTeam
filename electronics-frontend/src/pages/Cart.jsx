@@ -5,7 +5,7 @@ import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { cartService } from '../services/cartService';
 import { getUserId }   from '../utils/auth';
-import CartItem        from '../components/CartItem';
+import CardItem        from '../components/CardItem';
 
 function Cart() {
     const navigate = useNavigate();
@@ -64,7 +64,7 @@ function Cart() {
     const grandTotal = cart?.grandTotal || 0;
     const isEmpty   = items.length === 0;
 
-    return (
+return (
         <div>
             <h1 className="page-title">Your Cart</h1>
 
